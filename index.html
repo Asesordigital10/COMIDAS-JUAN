@@ -3,243 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Juan Fast & Fit - V3</title>
+    <title>Juan Fast & Fit - V5</title>
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --accent-green: #22c55e;
-            --accent-blue: #3b82f6;
-            --accent-orange: #f59e0b;
-            --accent-cyan: #06b6d4;
-            --text-white: #f8fafc;
+            --bg: #0a0f1e;
+            --card: #161e31;
+            --accent: #10b981;
+            --blue: #3b82f6;
+            --red: #ef4444;
+            --text: #f1f5f9;
             --text-dim: #94a3b8;
-            --danger: #ef4444;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-white);
+            background-color: var(--bg);
+            color: var(--text);
             display: flex;
             justify-content: center;
             padding: 15px;
             min-height: 100vh;
         }
 
-        .app-container { width: 100%; max-width: 450px; padding-bottom: 40px; }
+        .container { width: 100%; max-width: 450px; }
 
-        header { text-align: center; margin: 15px 0; }
-        h1 { color: var(--accent-green); text-transform: uppercase; font-size: 1.6rem; letter-spacing: 1px; }
-        .subtitle { color: var(--text-dim); font-size: 0.85rem; }
+        header { text-align: center; margin: 20px 0; }
+        h1 { color: var(--accent); font-size: 1.8rem; letter-spacing: -1px; }
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: #1e293b;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
 
         .card {
-            background: var(--card-bg);
-            padding: 18px;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            background: var(--card);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             margin-bottom: 15px;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .grid-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        label { display: block; margin-bottom: 6px; font-size: 0.8rem; color: var(--accent-green); font-weight: bold; }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--accent); margin-bottom: 8px; }
         
         input[type="time"] {
             width: 100%;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 14px;
             border: 2px solid #334155;
-            background: #0f172a;
+            background: #0a0f1e;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             text-align: center;
         }
 
-        button {
+        .btn-calc {
             width: 100%;
-            padding: 18px;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 16px;
             border: none;
-            font-weight: 800;
-            font-size: 1rem;
+            background: var(--accent);
+            color: #064e3b;
+            font-weight: 900;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            box-shadow: 0 4px 0 #059669;
         }
+        .btn-calc:active { transform: translateY(2px); box-shadow: none; }
 
-        .btn-main { background: var(--accent-green); color: #052e16; }
-        .btn-save { background: var(--accent-blue); color: white; margin-top: 10px; }
-        button:active { transform: scale(0.96); opacity: 0.8; }
-
-        .water-tracker {
+        /* Hidratación */
+        .water-box {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(59, 130, 246, 0.1);
-            padding: 12px;
-            border-radius: 15px;
-            border: 1px solid var(--accent-blue);
+            padding: 10px 0;
         }
-
-        .water-controls { display: flex; gap: 10px; }
-        .glass-btn {
-            background: var(--accent-blue);
-            width: 50px;
-            height: 50px;
+        .water-btn {
+            width: 65px; height: 65px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            border: none;
+            background: var(--blue);
             color: white;
+            font-size: 2rem;
+            box-shadow: 0 4px 0 #2563eb;
         }
+        .water-btn:active { transform: translateY(2px); box-shadow: none; }
+        .water-info { text-align: right; }
+        .water-val { font-size: 2rem; font-weight: 900; color: var(--blue); }
 
-        .water-stats { text-align: right; }
-        .water-count { font-size: 1.4rem; font-weight: bold; color: var(--accent-blue); }
-
+        /* Resultados */
         .results { display: none; margin-top: 10px; }
-
-        .meal-item {
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            border-left: 5px solid var(--accent-green);
+        .meal {
+            padding: 18px;
+            border-radius: 18px;
+            margin-bottom: 12px;
             background: rgba(255,255,255,0.03);
+            border-left: 6px solid var(--accent);
         }
+        .meal-time { font-weight: 900; color: var(--accent); font-size: 1.1rem; margin-bottom: 4px; display: block; }
+        .meal-desc { font-size: 0.95rem; line-height: 1.4; }
+        
+        .gap { border-left-color: var(--red); background: rgba(239, 68, 68, 0.08); }
+        .gap .meal-time { color: var(--red); }
 
-        .time-badge { font-weight: 800; color: var(--accent-green); display: block; margin-bottom: 4px; font-size: 1rem; }
-        .water-alert { border-left-color: var(--accent-cyan); }
-        .water-alert .time-badge { color: var(--accent-cyan); }
-        .gap-alert { border-left-color: var(--danger); background: rgba(239, 68, 68, 0.05); }
-        .gap-alert .time-badge { color: var(--danger); }
+        .sup { display: inline-block; background: #064e3b; color: #6ee7b7; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; margin-top: 8px; font-weight: bold; }
 
-        .sync-status {
-            text-align: center;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-dark);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 1000;
-            transition: opacity 0.5s;
-        }
-
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
-        .online { background: var(--accent-green); }
-        .offline { background: var(--danger); }
+        /* Dot animation */
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+        .dot.online { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
     </style>
 </head>
 <body>
 
-<div id="loader">
-    <div style="width: 40px; height: 40px; border: 4px solid #334155; border-top-color: var(--accent-green); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-    <p style="margin-top: 15px; color: var(--accent-green); font-weight: bold;">Iniciando Juan Fast & Fit...</p>
-</div>
-
-<div class="app-container">
+<div class="container">
     <header>
-        <h1>Juan Fast & Fit</h1>
-        <p class="subtitle">Gestión de Salud Multi-Dispositivo</p>
+        <h1>JUAN FAST & FIT</h1>
+        <div class="status-pill">
+            <div id="syncDot" class="dot"></div>
+            <span id="syncText">Iniciando...</span>
+        </div>
     </header>
 
     <div class="card">
-        <div class="grid-inputs">
+        <div class="input-row">
             <div>
                 <label>DESPERTAR</label>
-                <input type="time" id="wakeTime" value="07:00">
+                <input type="time" id="wakeInput" value="07:00">
             </div>
             <div>
                 <label>FIN ENTRENO</label>
-                <input type="time" id="finishTime" value="11:15">
+                <input type="time" id="trainInput" value="11:15">
             </div>
         </div>
-        <button class="btn-main" onclick="generatePlan()">
-            CALCULAR MI DÍA
-        </button>
-        <div class="sync-status">
-            <div id="syncDot" class="status-dot"></div>
-            <span id="syncText">Cargando localmente...</span>
-        </div>
+        <button class="btn-calc" onclick="generatePlan()">GENERAR PROTOCOLO</button>
     </div>
 
-    <div class="card" style="padding: 12px;">
-        <label>AGUA (VASOS 250ML)</label>
-        <div class="water-tracker">
-            <div class="water-controls">
-                <button class="glass-btn" onclick="addWater(-1)">-</button>
-                <button class="glass-btn" onclick="addWater(1)">+</button>
-            </div>
-            <div class="water-stats">
-                <div class="water-count" id="waterDisplay">0 / 14</div>
-                <div id="literDisplay" class="subtitle">0.00 L</div>
+    <div class="card">
+        <label>HIDRATACIÓN DIARIA (VASOS 250ML)</label>
+        <div class="water-box">
+            <button class="water-btn" onclick="updateWater(-1)">-</button>
+            <button class="water-btn" onclick="updateWater(1)">+</button>
+            <div class="water-info">
+                <div class="water-val" id="waterLabel">0 / 14</div>
+                <div class="subtitle" id="literLabel" style="color:var(--text-dim); font-size: 0.8rem;">0.00 L</div>
             </div>
         </div>
     </div>
 
     <div id="results" class="results">
-        <div class="meal-item water-alert">
-            <span class="time-badge" id="hWake">--:--</span>
-            <strong>Despertar:</strong> 500ml agua + probióticos.
+        <div class="meal" style="border-left-color: #06b6d4;">
+            <span class="meal-time" id="timeWake">--:--</span>
+            <strong>Limpieza Renal:</strong> 500ml de agua natural.
         </div>
 
-        <div class="meal-item gap-alert">
-            <span class="time-badge" id="hGap1">--:--</span>
-            <strong>🛑 GAP DIGESTIVO:</strong> No beber líquidos.
+        <div class="meal gap">
+            <span class="meal-time" id="timeGap">--:--</span>
+            <strong>🛑 GAP DIGESTIVO:</strong> Prohibido beber líquidos. Protegé tu $p\text{H}$ gástrico.
         </div>
 
-        <div class="meal-item">
-            <span class="time-badge" id="hMeal1">--:--</span>
-            <strong>Comida 1:</strong> <span id="protSuggestion" style="color: var(--accent-green);">--</span> + Verdes.
-            <div style="font-size: 0.8rem; margin-top:5px;">💊 Zinc (Qualivits)</div>
+        <div class="meal">
+            <span class="meal-time" id="timeMeal1">--:--</span>
+            <strong>Comida 1:</strong> <span id="proteinText" style="color:var(--accent); font-weight: bold;">--</span> + Vegetales Verdes.
+            <br><span class="sup">💊 Zinc (Qualivits)</span>
         </div>
 
-        <div class="meal-item" style="border-left-color: var(--accent-blue);">
-            <span class="time-badge" id="hMeal2">--:--</span>
-            <strong>Comida 2:</strong> Proteína ligera + Manzana al horno.
+        <div class="meal" style="border-left-color: var(--blue);">
+            <span class="meal-time" id="timeMeal2">--:--</span>
+            <strong>Comida 2:</strong> Proteína ligera (Huevo/Sardina) + Manzana al horno.
         </div>
 
-        <div class="meal-item" style="border-left-color: #a855f7;">
-            <span class="time-badge" id="hMag">--:--</span>
+        <div class="meal" style="border-left-color: #a855f7;">
+            <span class="meal-time" id="timeMag">--:--</span>
             <strong>Nocturno:</strong> Magnesio Bisglicinato.
+            <div style="font-size: 0.8rem; margin-top: 4px; color: var(--text-dim);">1 hora antes de dormir.</div>
         </div>
 
-        <button class="btn-save" onclick="saveToCloud()">
-            💾 GUARDAR EN LA NUBE
-        </button>
+        <button class="btn-calc" style="background:#1e293b; color:white; box-shadow: 0 4px 0 #0f172a;" onclick="saveAndRotate()">GUARDAR Y ROTAR</button>
     </div>
 </div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    // --- Lógica de Resiliencia de Firebase ---
+    let db = null;
+    let auth = null;
+    let userId = null;
+    const appId = 'juan-fast-fit-v5';
 
-    // --- CONFIGURACIÓN ---
-    const firebaseConfig = JSON.parse(__firebase_config);
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'juan-fast-fit-v3';
-
-    // Estado Local Inicial (Carga inmediata)
-    let state = JSON.parse(localStorage.getItem('juan_fit_backup')) || {
+    // 1. Carga inmediata del estado local
+    let state = JSON.parse(localStorage.getItem('juan_fit_v5')) || {
         lastProtein: "",
         lastLiverDate: null,
         waterCount: 0,
@@ -248,134 +208,123 @@
         finishTime: "11:15"
     };
 
-    let user = null;
+    // Resetear agua si es un nuevo día
+    if (state.lastReset !== new Date().toLocaleDateString()) {
+        state.waterCount = 0;
+        state.lastReset = new Date().toLocaleDateString();
+    }
 
-    // --- INICIO RÁPIDO ---
-    const fastStart = () => {
-        updateUI();
-        // Quitar loader después de 1.5 segundos pase lo que pase con la nube
-        setTimeout(() => {
-            const loader = document.getElementById('loader');
-            if(loader) loader.style.opacity = '0';
-            setTimeout(() => { if(loader) loader.style.display = 'none'; }, 500);
-        }, 1500);
+    // Actualizar UI inicial
+    const refreshUI = () => {
+        document.getElementById('waterLabel').innerText = `${state.waterCount} / 14`;
+        document.getElementById('literLabel').innerText = `${(state.waterCount * 0.25).toFixed(2)} Litros`;
+        document.getElementById('wakeInput').value = state.wakeTime;
+        document.getElementById('trainInput').value = state.finishTime;
     };
+    refreshUI();
 
-    const updateUI = () => {
-        document.getElementById('waterDisplay').innerText = `${state.waterCount} / 14`;
-        document.getElementById('literDisplay').innerText = `${(state.waterCount * 0.25).toFixed(2)} L`;
-        document.getElementById('wakeTime').value = state.wakeTime;
-        document.getElementById('finishTime').value = state.finishTime;
-    };
-
-    // --- AUTHENTICATION ---
-    const startAuth = async () => {
+    // Intentar conectar a la nube en silencio
+    const tryCloud = async () => {
         try {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
-            }
-        } catch (error) {
-            console.error("Auth error", error);
-            document.getElementById('syncText').innerText = "Modo Offline";
-            document.getElementById('syncDot').className = "status-dot offline";
-        }
-    };
+            if (typeof __firebase_config === 'undefined') throw "No config";
+            
+            const firebase = await import("https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js");
+            const fAuth = await import("https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js");
+            const fStore = await import("https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js");
 
-    onAuthStateChanged(auth, (u) => {
-        if (u) {
-            user = u;
-            document.getElementById('syncText').innerText = "Sincronizado";
-            document.getElementById('syncDot').className = "status-dot online";
-            listenToCloud();
-        }
-    });
+            const app = firebase.initializeApp(JSON.parse(__firebase_config));
+            db = fStore.getFirestore(app);
+            auth = fAuth.getAuth(app);
 
-    // --- FIRESTORE SYNC ---
-    const listenToCloud = () => {
-        const docRef = doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'dailyState');
-        onSnapshot(docRef, (snap) => {
-            if (snap.exists()) {
-                const cloudData = snap.data();
-                // Si el dato de la nube es más nuevo o de hoy, lo usamos
-                if (cloudData.lastReset === new Date().toLocaleDateString()) {
-                    state = { ...state, ...cloudData };
-                } else {
-                    // Si es un día nuevo en la nube, reseteamos agua local
-                    state.waterCount = 0;
-                    state.lastReset = new Date().toLocaleDateString();
+            fAuth.onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    document.getElementById('syncDot').className = "dot online";
+                    document.getElementById('syncText').innerText = "Sincronizado";
+                    
+                    // Cargar de la nube si existe
+                    const docRef = fStore.doc(db, 'artifacts', appId, 'users', userId, 'data', 'daily');
+                    const snap = await fStore.getDoc(docRef);
+                    if (snap.exists()) {
+                        const cloud = snap.data();
+                        if (cloud.lastReset === new Date().toLocaleDateString()) {
+                            state = { ...state, ...cloud };
+                        } else {
+                            state = { ...state, ...cloud, waterCount: 0, lastReset: new Date().toLocaleDateString() };
+                        }
+                        refreshUI();
+                    }
                 }
-                updateUI();
-                localStorage.setItem('juan_fit_backup', JSON.stringify(state));
-            }
-        }, (err) => {
-            console.error("Snapshot error", err);
-        });
-    };
+            });
 
-    window.saveToCloud = async () => {
-        if (!user) return alert("Esperando conexión...");
-        state.lastProtein = state.currentSuggestion;
-        if(state.currentSuggestion === "Hígado de res") state.lastLiverDate = new Date().getTime();
-        
-        try {
-            const docRef = doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'dailyState');
-            await setDoc(docRef, state);
-            localStorage.setItem('juan_fit_backup', JSON.stringify(state));
-            alert("¡Guardado en la nube y rotado!");
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await fAuth.signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await fAuth.signInAnonymously(auth);
+            }
         } catch (e) {
-            alert("Error al guardar en la nube. Se guardó localmente.");
+            document.getElementById('syncText').innerText = "Modo Local";
+            console.log("App corriendo en modo local independiente.");
         }
     };
 
-    window.addWater = (val) => {
+    // Funciones globales
+    window.updateWater = (val) => {
         state.waterCount = Math.max(0, state.waterCount + val);
-        updateUI();
-        localStorage.setItem('juan_fit_backup', JSON.stringify(state));
-        // Intentar guardar agua silenciosamente si hay user
-        if (user) {
-            const docRef = doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'dailyState');
-            setDoc(docRef, { waterCount: state.waterCount, lastReset: state.lastReset }, { merge: true });
+        refreshUI();
+        saveState();
+    };
+
+    const saveState = async () => {
+        localStorage.setItem('juan_fit_v5', JSON.stringify(state));
+        if (db && userId) {
+            try {
+                const fStore = await import("https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js");
+                await fStore.setDoc(fStore.doc(db, 'artifacts', appId, 'users', userId, 'data', 'daily'), state);
+            } catch (e) {}
         }
     };
 
     window.generatePlan = () => {
-        state.wakeTime = document.getElementById('wakeTime').value;
-        state.finishTime = document.getElementById('finishTime').value;
+        state.wakeTime = document.getElementById('wakeInput').value;
+        state.finishTime = document.getElementById('trainInput').value;
 
-        const trainEnd = new Date(`2026-01-01T${state.finishTime}`);
-        const m1 = new Date(trainEnd.getTime() + 60 * 60000);
+        const [h, m] = state.finishTime.split(':');
+        const end = new Date(); end.setHours(h, m, 0);
+        const m1 = new Date(end.getTime() + 60 * 60000);
         const m2 = new Date(m1.getTime() + 8 * 60 * 60000);
-        const mag = new Date(m2.getTime() + 2 * 60 * 60000);
-
-        const format = (d) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-
-        document.getElementById('hWake').innerText = state.wakeTime;
-        document.getElementById('hMeal1').innerText = format(m1);
-        document.getElementById('hGap1').innerText = `${format(new Date(m1.getTime() - 15 * 60000))} - ${format(new Date(m1.getTime() + 75 * 60000))}`;
-        document.getElementById('hMeal2').innerText = format(m2);
-        document.getElementById('hMag').innerText = format(mag);
         
-        // Lógica de rotación
+        const format = (d) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        document.getElementById('timeWake').innerText = state.wakeTime;
+        document.getElementById('timeGap').innerText = `${format(new Date(m1.getTime() - 15 * 60000))} - ${format(new Date(m1.getTime() + 75 * 60000))}`;
+        document.getElementById('timeMeal1').innerText = format(m1);
+        document.getElementById('timeMeal2').innerText = format(m2);
+        document.getElementById('timeMag').innerText = format(new Date(m2.getTime() + 2 * 60 * 60000));
+
+        // Rotación
         const prots = ["Pechuga de pollo", "Churrasco de ternera", "Atún/Pescado"];
-        let options = prots.filter(p => p !== state.lastProtein);
-        const oneWeek = 7 * 24 * 60 * 60 * 1000;
-        if (!state.lastLiverDate || (new Date().getTime() - state.lastLiverDate > oneWeek)) options.push("Hígado de res");
+        let opts = prots.filter(p => p !== state.lastProtein);
+        const now = new Date().getTime();
+        if (!state.lastLiverDate || (now - state.lastLiverDate > 7 * 24 * 60 * 60000)) opts.push("Hígado de res");
         
-        state.currentSuggestion = options[Math.floor(Math.random() * options.length)];
-        document.getElementById('protSuggestion').innerText = state.currentSuggestion;
+        state.currentSuggestion = opts[Math.floor(Math.random() * opts.length)];
+        document.getElementById('proteinText').innerText = state.currentSuggestion;
         document.getElementById('results').style.display = 'block';
+        saveState();
     };
 
-    // Ejecución
-    fastStart();
-    startAuth();
+    window.saveAndRotate = () => {
+        state.lastProtein = state.currentSuggestion;
+        if(state.currentSuggestion === "Hígado de res") state.lastLiverDate = new Date().getTime();
+        saveState();
+        alert("¡Registro guardado!");
+    };
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    tryCloud();
 </script>
-<style> @keyframes spin { to { transform: rotate(360deg); } } </style>
 </body>
 </html>
+
 
 
